@@ -1,0 +1,38 @@
+{
+  "name": "@cfware/promisify-emitter",
+  "version": "0.1.0",
+  "description": "Create a promise that resolves or rejects based on emitter events.",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint *.js test/*.js && nyc mocha",
+    "report-coverage": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "engines": {
+    "nodejs": ">=4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cfware/promisify-emitter.git"
+  },
+  "author": "Corey Farrell",
+  "license": "MIT",
+  "keywords": [
+    "async",
+    "events",
+    "promisify"
+  ],
+  "files": [
+    "*.js",
+    ".eslintrc.json",
+    "test"
+  ],
+  "bugs": {
+    "url": "https://github.com/cfware/promisify-emitter/issues"
+  },
+  "homepage": "https://github.com/cfware/promisify-emitter#readme",
+  "devDependencies": {
+    "eslint": "^4.12.0",
+    "mocha": "^4.0.1",
+    "nyc": "^11.3.0"
+  }
+}
