@@ -19,11 +19,8 @@ npm i --save @cfware/promisify-emitter
 
 ## Usage
 
-Example of awaiting a web application listening for requests.
+### Direct usage on emitter that is not yet resolved
 ```js
-#!/usr/bin/env node
-'use strict';
-
 const koa = require('koa');
 const promisifyEmitter = require('@cfware/promisify-emitter');
 
@@ -37,7 +34,32 @@ async function main() {
 	console.log(`Listening at http://localhost:${server.address().port}/`);
 }
 
-main();
+main().catch(console.error);
+```
+
+### Extending class with a replacement function
+
+```js
+const koa_base = require('koa');
+const promisifyEmitter = require('@cfware/promisify-emitter');
+
+class koa extends koa_base {
+	listen(...args) {
+		return promisifyEmitter(super.listen(...args), 'listening');
+	}
+}
+
+async function main() {
+	const app = new koa();
+
+	app.use(ctx => ctx.body = 'Hello world!');
+
+	const server = await app.listen(0);
+
+	console.log(`Listening at http://localhost:${server.address().port}/`);
+}
+
+main().catch(console.error);
 ```
 
 ## Running tests
