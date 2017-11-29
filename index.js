@@ -1,10 +1,11 @@
 'use strict';
 
-function promisifyEmitter(emitter, resolve_event, reject_event) {
+function promisifyEmitter(emitter, resolve_event, options = {}) {
 	return new Promise(function(resolve, reject) {
+		const reject_event = options.reject || 'error';
 		const callbacks = {
-			onresolve() {
-				resolve(emitter);
+			onresolve(arg) {
+				resolve(options.pass_arg ? arg : emitter);
 				emitter.removeListener(reject_event, callbacks.onreject);
 			},
 			onreject(error) {
@@ -14,14 +15,16 @@ function promisifyEmitter(emitter, resolve_event, reject_event) {
 		};
 
 		if (typeof resolve_event != 'string') {
-			/* give the caller a chance to use .catch callback. */
-			setTimeout(function promisifyEmitter() {
-				reject(new Error('resolve_event must be a string'));
-			}, 1);
+			reject(new Error('resolve_event must be a string'));
+
 			return;
 		}
 
-		reject_event = reject_event || 'error';
+		if (typeof reject_event != 'string') {
+			reject(new Error('options.reject must be a string if provided'));
+
+			return;
+		}
 
 		emitter
 			.once(resolve_event, callbacks.onresolve)
