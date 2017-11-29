@@ -1,6 +1,6 @@
 {
   "name": "@cfware/promisify-emitter",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Create a promise that resolves or rejects based on emitter events.",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "report-coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "engines": {
-    "nodejs": ">=4"
+    "nodejs": ">=6"
   },
   "repository": {
     "type": "git",

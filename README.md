@@ -11,7 +11,7 @@ Initiate a promise that resolves or rejects based on emitter events.
 
 ### Install @cfware/promisify-emitter
 
-This module requires node.js 4 or above.
+This module requires node.js 6 or above.
 
 ```sh
 npm i --save @cfware/promisify-emitter
